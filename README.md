@@ -13,5 +13,5 @@ pip install beautifulsoup4
 cmd
 </br>
 python Ajatar.py -u [target]
-
-[![AYO4eA.jpg](https://s2.ax1x.com/2019/03/24/AYO4eA.jpg)](https://imgchr.com/i/AYO4eA)
+</br>
+![Ajatar.jpg](https://s2.ax1x.com/2019/03/24/AYO4eA.th.jpg)
