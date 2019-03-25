@@ -55,9 +55,7 @@ def main():
 	parser = argparse.ArgumentParser(description="Ajatar scan must a url")
 	parser.add_argument("-u","--url",help="url")
 	args = parser.parse_args()
-	#root = args.url
-	root = 'https://www.baidu.com'
-
+	root = args.url
 
 	#判断是否为Windows
 	if IS_WIN:
@@ -72,10 +70,6 @@ def main():
 	#输出报告对象
 	output = outputer.outputer()
 
-	#webcms
-	ww = webcms.webcms(root,threadNum)
-	ww.run()
-	output.build_html(domain)
 	# CDN Check
 	print "CDN check...."
 	iscdn = True
@@ -104,6 +98,11 @@ def main():
 	dd = webdir.webdir(root,threadNum)
 	dd.work()
 	dd.output()
+	output.build_html(domain)
+
+	#webcms
+	ww = webcms.webcms(root,threadNum)
+	ww.run()
 	output.build_html(domain)
 
 	#spider
