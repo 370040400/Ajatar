@@ -105,12 +105,46 @@ def isListLike(value):
     return isinstance(value, (list, tuple, set))
 
 def setPaths(rootPath):
-	"""
-	Sets abolute paths for project directoies and files
-	"""
+    """
+    Sets abolute paths for project directoies and files
+    """
 
-	paths.Ajatar_ROOT_PATH = rootPath
+    paths.Ajatar_ROOT_PATH = rootPath
 
-	#Ajatar pahts
-	paths.Ajatar_Plugin_Path = os.path.join(paths.Ajatar_ROOT_PATH,"plugins")
-	paths.Ajatar_Output_Path = os.path.join(paths.Ajatar_ROOT_PATH, "output")
+    #Ajatar pahts
+    paths.Ajatar_Plugin_Path = os.path.join(paths.Ajatar_ROOT_PATH,"plugins")
+    paths.Ajatar_Output_Path = os.path.join(paths.Ajatar_ROOT_PATH, "output")
+
+def flattenValue(value):
+    """
+    Returns an iterator representing flat representation of a given value
+
+    >>> [_ for _ in flattenValue([[u'1'], [[u'2'], u'3']])]
+    [u'1', u'2', u'3']
+    """
+
+    for i in iter(value):#iter() 函数用来生成迭代器。
+        if isListLike(i):
+            for j in flattenValue(i):
+                yield j
+        else:
+            yield i
+
+def unArrayizeValue(value):
+    """
+    Makes a value out of iterable if it is a list or tuple itself
+
+    >>> unArrayizeValue([u'1'])
+    u'1'
+    """
+
+    if isListLike(value):
+        if not value:
+            value = None
+        elif len(value) == 1 and not isListLike(value[0]):
+            value = value[0]
+        else:
+            _ = filter(lambda _: _ is not None, (_ for _ in flattenValue(value)))
+            value = _[0] if len(_) > 0 else None
+
+    return value

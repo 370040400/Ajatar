@@ -11,6 +11,9 @@ import sys,argparse,os,inspect
 from lib.core.Spider import SpiderMain
 from lib.core import webcms,common,PortScan,webdir,outputer,fun_until
 from lib.core.settings import IS_WIN
+from lib.core.option import initOption
+from lib.core.data import logger, paths
+from lib.utils.configfile import configFileParser
 #thirdparty 还没分析直接用了别人的 又线程池那些东东- -
 from thirdparty.colorama.initialise import init as windowsColorInit #Windows界面颜色
 
@@ -44,7 +47,7 @@ def checkEnvironment():
 	except UnicodeEncodeError:
 		errMsg = "your system does not properly handle non-ASCII paths. "
 		errMsg += "Please move the Ajatar's directory to the other location"
-		#logger.critical(errMsg)
+		logger.critical(errMsg)
 		raise SystemExit
 
 def main():
@@ -64,10 +67,15 @@ def main():
 		windowsColorInit()
 	#Banner()
 
+	try:
+		configFileParser(os.path.join(paths.Ajatar_ROOT_PATH,"config.conf"))
+		#线程数
+		threadNum = initOption(args)
+	except Exception as e:
+		raise e
+
 	#拆解url 得到netloc
 	domain = common.Ajurlparse(root)
-	#线程数
-	threadNum = 10
 	#输出报告对象
 	output = outputer.outputer()
 
