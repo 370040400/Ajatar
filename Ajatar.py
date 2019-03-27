@@ -40,7 +40,7 @@ def modulePath():
 
 def checkEnvironment():
 	try:
-		os.path.isdir(modulePath())
+		os.path.isdir(modulePath()) #os.path.isdir()用于判断对象是否为一个目录
 	except UnicodeEncodeError:
 		errMsg = "your system does not properly handle non-ASCII paths. "
 		errMsg += "Please move the Ajatar's directory to the other location"
@@ -56,6 +56,7 @@ def main():
 	parser.add_argument("-u","--url",help="url")
 	args = parser.parse_args()
 	root = args.url
+	#root = "http://www.imufe.edu.cn/"
 
 	#判断是否为Windows
 	if IS_WIN:

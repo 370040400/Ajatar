@@ -28,6 +28,7 @@ class outputer:
         if key not in self.data:
             self.data[key] = []
         self.data[key].append(data)
+        self.data[key] = list(set(self.data[key]))
 
     # 显示加入的数据
     def show(self):
@@ -92,7 +93,7 @@ class outputer:
 		</div>
 	</div>
 </div>  </body>
-</html>'''.replace("build_html_AjatarScan",self._build_table())
-        file_object = open(filename+'.html', 'w')
+</html>'''.replace("build_html_AjatarScan",self._build_table()) #替换html中的build....Scan 为生成的html元素
+        file_object = open(filename+'.html', 'w')  #调用一次写一次进去
         file_object.write(html_head)
         file_object.close()

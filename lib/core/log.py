@@ -12,13 +12,15 @@ logging.addLevelName(CUSTOM_LOGGING.SUCCESS, "+")
 logging.addLevelName(CUSTOM_LOGGING.ERROR, "-")
 logging.addLevelName(CUSTOM_LOGGING.WARNING, "!")
 logging.addLevelName(CUSTOM_LOGGING.DEBUG, "DEBUG")
+#创建一个logger
 LOGGER = logging.getLogger("Ajatar")
 
 LOGGER_HANDLER = None
 try:
     from thirdparty.ansistrm.ansistrm import ColorizingStreamHandler
 
-    try:
+    try:                    #sys.stdout的形式就是print的一种默认输出格式
+        #输出颜色
         LOGGER_HANDLER = ColorizingStreamHandler(sys.stdout)
         LOGGER_HANDLER.level_map[logging.getLevelName("*")] = (None, "cyan", False)
         LOGGER_HANDLER.level_map[logging.getLevelName("+")] = (None, "green", False)
@@ -32,9 +34,11 @@ except ImportError:
     LOGGER_HANDLER = logging.StreamHandler(sys.stdout)
 
 FORMATTER = logging.Formatter("\r[%(levelname)s] %(message)s", "%H:%M:%S")
-
+#定义handler的输出格式
 LOGGER_HANDLER.setFormatter(FORMATTER)
+#将logger添加到handler里面
 LOGGER.addHandler(LOGGER_HANDLER)
+#log等级开关  这里设置为5
 LOGGER.setLevel(CUSTOM_LOGGING.WARNING)
 
 
