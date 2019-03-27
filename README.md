@@ -14,4 +14,3 @@ cmd
 </br>
 python Ajatar.py -u [target]
 </br>
-![Ajatar.jpg](https://s2.ax1x.com/2019/03/24/AYO4eA.th.jpg)
